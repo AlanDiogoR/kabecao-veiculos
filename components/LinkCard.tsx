@@ -22,7 +22,7 @@ function pushDataLayer(event: string, linkLabel: string) {
 
 function BrandIcon({ tone }: { tone: LinkTone }) {
   switch (tone) {
-    case "pio-hero":
+    case "piu-hero":
       return (
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/20 text-white [&>svg]:h-7 [&>svg]:w-7">
           <FaWhatsapp aria-hidden />
@@ -73,7 +73,7 @@ function BrandIcon({ tone }: { tone: LinkTone }) {
 
 function toneClasses(tone: LinkTone): string {
   switch (tone) {
-    case "pio-hero":
+    case "piu-hero":
       return "border-[#1ebe57] bg-[#25D366] text-white shadow-lg hover:shadow-xl focus-visible:outline-white";
     case "junior-outline":
       return "border-2 border-[#25D366] bg-white text-neutral-900 shadow-sm hover:shadow-md focus-visible:outline-[#25D366]";
@@ -95,7 +95,7 @@ export function LinkCard({
   pulse,
   gtmEvent,
 }: LinkCardProps) {
-  const isHero = tone === "pio-hero";
+  const isHero = tone === "piu-hero";
   const isPulseHero = Boolean(pulse && isHero);
   const base =
     "flex w-full items-center gap-4 rounded-xl text-left transition-shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";

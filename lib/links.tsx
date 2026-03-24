@@ -1,5 +1,5 @@
 export type LinkTone =
-  | "pio-hero"
+  | "piu-hero"
   | "junior-outline"
   | "instagram"
   | "tiktok"
@@ -16,11 +16,11 @@ export type LinkItem = {
 
 export const LINKS: readonly LinkItem[] = [
   {
-    href: "https://wa.me/5514997534483?text=Olá%20Pio,%20vi%20o%20estoque%20da%20Kabeção%20Veículos%20e%20gostaria%20de%20mais%20informações!",
-    label: "Falar com Pio (Vendas)",
-    tone: "pio-hero",
+    href: "https://wa.me/5514997534483?text=Olá%20Piu,%20vi%20o%20estoque%20da%20Kabeção%20Veículos%20e%20gostaria%20de%20mais%20informações!",
+    label: "Falar com Piu (Vendas)",
+    tone: "piu-hero",
     pulse: true,
-    gtmEvent: "whatsapp_pio",
+    gtmEvent: "whatsapp_piu",
   },
   {
     href: "https://wa.me/5514997835263?text=Olá%20Júnior,%20vi%20o%20estoque%20da%20Kabeção%20Veículos%20e%20gostaria%20de%20mais%20informações!",

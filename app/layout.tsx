@@ -30,6 +30,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
+  icons: {
+    apple: [{ url: "/logo.png", sizes: "180x180", type: "image/png" }],
+  },
   keywords: [...SITE_KEYWORDS],
   category: "automotive",
   authors: [{ name: "Kabeção Veículos", url: siteUrl }],

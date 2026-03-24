@@ -11,12 +11,12 @@ describe("LINKS", () => {
     expect(whatsapp).toHaveLength(2);
   });
 
-  it("coloca Pio em destaque com pulse e mensagem de estoque", () => {
-    const pio = LINKS.find((l) => l.gtmEvent === "whatsapp_pio");
-    expect(pio?.tone).toBe("pio-hero");
-    expect(pio?.pulse).toBe(true);
-    expect(pio?.href).toMatch(/Pio/i);
-    expect(pio?.href).toMatch(/estoque/i);
+  it("coloca Piu em destaque com pulse e mensagem de estoque", () => {
+    const piu = LINKS.find((l) => l.gtmEvent === "whatsapp_piu");
+    expect(piu?.tone).toBe("piu-hero");
+    expect(piu?.pulse).toBe(true);
+    expect(piu?.href).toMatch(/Piu/i);
+    expect(piu?.href).toMatch(/estoque/i);
   });
 
   it("define Júnior como botão secundário sem pulse", () => {
