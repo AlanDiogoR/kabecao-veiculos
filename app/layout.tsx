@@ -31,6 +31,8 @@ export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml", sizes: "any" }],
+    shortcut: "/icon.svg",
     apple: [{ url: "/logo.png", sizes: "180x180", type: "image/png" }],
   },
   keywords: [...SITE_KEYWORDS],
