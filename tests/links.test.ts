@@ -11,9 +11,24 @@ describe("LINKS", () => {
     expect(whatsapp).toHaveLength(2);
   });
 
-  it("define mensagem pré-preenchida para Júnior", () => {
+  it("coloca Pio em destaque com pulse e mensagem de estoque", () => {
+    const pio = LINKS.find((l) => l.gtmEvent === "whatsapp_pio");
+    expect(pio?.tone).toBe("pio-hero");
+    expect(pio?.pulse).toBe(true);
+    expect(pio?.href).toMatch(/Pio/i);
+    expect(pio?.href).toMatch(/estoque/i);
+  });
+
+  it("define Júnior como botão secundário sem pulse", () => {
     const junior = LINKS.find((l) => l.gtmEvent === "whatsapp_junior");
+    expect(junior?.tone).toBe("junior-outline");
+    expect(junior?.pulse).toBeUndefined();
     expect(junior?.href).toMatch(/Júnior/i);
-    expect(junior?.pulse).toBe(true);
+  });
+
+  it("usa URL de maps sem sufixo SP quando solicitado", () => {
+    const maps = LINKS.find((l) => l.tone === "maps");
+    expect(maps?.href).toContain("Kabeção+Veículos+Fartura");
+    expect(maps?.href).not.toContain("Fartura+SP");
   });
 });

@@ -20,7 +20,7 @@ const item = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-neutral-100 via-white to-white">
+    <div className="min-h-screen bg-[#F9FAFB]">
       <main className="mx-auto flex min-h-screen max-w-lg flex-col px-5 pb-10 pt-12 sm:px-6">
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
@@ -28,16 +28,14 @@ export default function Home() {
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="mb-10 flex flex-col items-center"
         >
-          <div className="relative h-36 w-36 sm:h-40 sm:w-40">
-            <Image
-              src="/logo.png"
-              alt="Kabeção Veículos — revenda de carros e seminovos em Fartura, São Paulo"
-              fill
-              sizes="160px"
-              className="object-contain drop-shadow-md"
-              priority
-            />
-          </div>
+          <Image
+            src="/logo.png"
+            alt="Kabeção Veículos — revenda de carros e seminovos em Fartura, São Paulo"
+            width={192}
+            height={192}
+            className="mx-auto h-auto w-48 max-w-full object-contain mix-blend-multiply"
+            priority
+          />
           <p className="mt-4 max-w-sm text-center text-sm text-neutral-600">
             Carros e seminovos em Fartura/SP — fale com a equipe pelo WhatsApp ou
             acompanhe o estoque nas redes.
@@ -55,8 +53,7 @@ export default function Home() {
               <LinkCard
                 href={link.href}
                 label={link.label}
-                Icon={link.Icon}
-                variant={link.variant}
+                tone={link.tone}
                 pulse={link.pulse}
                 gtmEvent={link.gtmEvent}
               />

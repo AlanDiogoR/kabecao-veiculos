@@ -1,13 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { IconType } from "react-icons";
+import { MapPin } from "lucide-react";
+import type { LinkTone } from "@/lib/links";
+import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa6";
 
 type LinkCardProps = {
   href: string;
   label: string;
-  Icon: IconType;
-  variant: "primary" | "secondary" | "social";
+  tone: LinkTone;
   pulse?: boolean;
   gtmEvent?: string;
 };
@@ -19,46 +20,107 @@ function pushDataLayer(event: string, linkLabel: string) {
   w.dataLayer.push({ event, link_label: linkLabel });
 }
 
+function BrandIcon({ tone }: { tone: LinkTone }) {
+  switch (tone) {
+    case "pio-hero":
+      return (
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/20 text-white [&>svg]:h-7 [&>svg]:w-7">
+          <FaWhatsapp aria-hidden />
+        </span>
+      );
+    case "junior-outline":
+      return (
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#25D366]/10 text-[#25D366] [&>svg]:h-6 [&>svg]:w-6">
+          <FaWhatsapp aria-hidden />
+        </span>
+      );
+    case "instagram":
+      return (
+        <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-[#f09433] via-[#e6683c] to-[#bc1888] p-[2px] shadow-sm">
+          <span className="flex h-full w-full items-center justify-center rounded-[6px] bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888]">
+            <FaInstagram className="h-6 w-6 text-white" aria-hidden />
+          </span>
+        </span>
+      );
+    case "tiktok":
+      return (
+        <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-black text-white [&>svg]:h-6 [&>svg]:w-6">
+          <span
+            className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-[#00f2ea]"
+            aria-hidden
+          />
+          <span
+            className="absolute -bottom-0.5 -left-0.5 h-2 w-2 rounded-full bg-[#ff0050]"
+            aria-hidden
+          />
+          <FaTiktok aria-hidden />
+        </span>
+      );
+    case "facebook":
+      return (
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#1877F2]/10 text-[#1877F2] [&>svg]:h-7 [&>svg]:w-7">
+          <FaFacebook aria-hidden />
+        </span>
+      );
+    case "maps":
+      return (
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#EA4335]/10 text-[#EA4335]">
+          <MapPin className="h-6 w-6" strokeWidth={2.25} aria-hidden />
+        </span>
+      );
+  }
+}
+
+function toneClasses(tone: LinkTone): string {
+  switch (tone) {
+    case "pio-hero":
+      return "border-[#1ebe57] bg-[#25D366] text-white shadow-lg hover:shadow-xl focus-visible:outline-white";
+    case "junior-outline":
+      return "border-2 border-[#25D366] bg-white text-neutral-900 shadow-sm hover:shadow-md focus-visible:outline-[#25D366]";
+    default:
+      return "border border-neutral-200/90 bg-white text-neutral-900 shadow-sm hover:shadow-md focus-visible:outline-brand-blue";
+  }
+}
+
+const pulseShadow = [
+  "0 0 0 0 rgba(37, 211, 102, 0.55)",
+  "0 0 0 14px rgba(37, 211, 102, 0)",
+  "0 0 0 0 rgba(37, 211, 102, 0.55)",
+] as const;
+
 export function LinkCard({
   href,
   label,
-  Icon,
-  variant,
+  tone,
   pulse,
   gtmEvent,
 }: LinkCardProps) {
+  const isHero = tone === "pio-hero";
+  const isPulseHero = Boolean(pulse && isHero);
   const base =
-    "flex w-full items-center gap-4 rounded-xl border px-5 py-4 text-left shadow-md transition-shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";
+    "flex w-full items-center gap-4 rounded-xl text-left transition-shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";
 
-  const styles = {
-    primary:
-      "border-brand-red/30 bg-gradient-to-r from-brand-red to-[#c41820] text-white hover:shadow-xl focus-visible:outline-white",
-    secondary:
-      "border-brand-blue/20 bg-white text-brand-blue hover:shadow-xl focus-visible:outline-brand-blue",
-    social:
-      "border-neutral-200/80 bg-white text-neutral-800 hover:shadow-xl focus-visible:outline-brand-blue",
-  };
+  const padding = isHero ? "px-6 py-6 text-lg" : "px-5 py-4 text-base";
 
   return (
     <motion.a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${base} ${styles[variant]} ${pulse ? "animate-pulse-soft" : ""}`}
+      className={`${base} ${toneClasses(tone)} ${padding}`}
+      animate={isPulseHero ? { boxShadow: [...pulseShadow] } : undefined}
+      transition={
+        isPulseHero
+          ? { duration: 2.25, repeat: Infinity, ease: "easeInOut" }
+          : { type: "spring", stiffness: 400, damping: 25 }
+      }
       whileHover={{ y: -4 }}
       whileTap={{ scale: 0.99 }}
-      transition={{ type: "spring", stiffness: 400, damping: 25 }}
       onClick={() => {
         if (gtmEvent) pushDataLayer(gtmEvent, label);
       }}
     >
-      <span
-        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg [&>svg]:h-6 [&>svg]:w-6 ${
-          variant === "primary" ? "bg-white/15 text-white" : "bg-black/5 text-current"
-        }`}
-      >
-        <Icon aria-hidden />
-      </span>
+      <BrandIcon tone={tone} />
       <span className="min-w-0 flex-1 font-semibold leading-snug">{label}</span>
     </motion.a>
   );

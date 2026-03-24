@@ -3,7 +3,6 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { LinkCard } from "@/components/LinkCard";
-import { FaWhatsapp } from "react-icons/fa6";
 
 vi.mock("framer-motion", () => ({
   motion: {
@@ -12,10 +11,14 @@ vi.mock("framer-motion", () => ({
       whileHover: _h,
       whileTap: _t,
       transition: _tr,
+      animate: _a,
       ...props
-    }: ComponentProps<"a"> & { whileHover?: unknown; whileTap?: unknown; transition?: unknown }) => (
-      <a {...props}>{children}</a>
-    ),
+    }: ComponentProps<"a"> & {
+      whileHover?: unknown;
+      whileTap?: unknown;
+      transition?: unknown;
+      animate?: unknown;
+    }) => <a {...props}>{children}</a>,
   },
 }));
 
@@ -25,8 +28,7 @@ describe("LinkCard", () => {
       <LinkCard
         href="https://wa.me/5514999999999"
         label="Falar com Vendas"
-        Icon={FaWhatsapp}
-        variant="primary"
+        tone="junior-outline"
       />,
     );
     const link = screen.getByRole("link", { name: /Falar com Vendas/i });
@@ -45,8 +47,7 @@ describe("LinkCard", () => {
       <LinkCard
         href="https://example.com"
         label="Clique"
-        Icon={FaWhatsapp}
-        variant="social"
+        tone="facebook"
         gtmEvent="test_event"
       />,
     );

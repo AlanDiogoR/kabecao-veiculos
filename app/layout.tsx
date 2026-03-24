@@ -19,9 +19,11 @@ const inter = Inter({
 const siteUrl = getSiteUrl();
 
 export const viewport: Viewport = {
-  themeColor: "#002D9C",
+  themeColor: "#25D366",
   width: "device-width",
   initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export const metadata: Metadata = {

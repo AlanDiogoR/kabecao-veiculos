@@ -3,18 +3,19 @@ import { getSiteUrl } from "@/lib/site";
 export const SITE_NAME = "Kabeção Veículos";
 
 export const SITE_TITLE =
-  "Kabeção Veículos | Carros e Seminovos em Fartura/SP";
+  "Kabeção Veículos | Seminovos em Fartura/SP";
 
 export const SITE_DESCRIPTION =
-  "Encontre seu próximo carro na Kabeção Veículos. Melhores taxas de financiamento, procedência garantida e atendimento especializado em Fartura e região.";
+  "Seminovos e usados selecionados na Kabeção Veículos em Fartura/SP. Procedência conferida, condições de financiamento e atendimento direto pelo WhatsApp. Visite a loja ou fale com a equipe de vendas.";
 
 export const SITE_KEYWORDS = [
   "carros em fartura",
   "revenda de veículos",
   "comprar seminovos",
+  "seminovos Fartura",
   "financiamento de carros sp",
   "Kabeção Veículos",
-  "seminovos Fartura",
+  "procedência veículos usados",
   "loja de carros Fartura SP",
 ] as const;
 
