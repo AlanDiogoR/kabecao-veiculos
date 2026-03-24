@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Kabe˜˜o">
+  <defs>
+    <linearGradient id="kab-favicon-grad" x1="16" y1="0" x2="16" y2="32" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#002D9C" />
+      <stop offset="1" stop-color="#E31E24" />
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="url(#kab-favicon-grad)" />
+  <path
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="2.75"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    d="M8 7v18M8 16L24 7M8 16L24 25"
+  />
+</svg>
