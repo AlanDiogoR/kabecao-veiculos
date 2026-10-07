@@ -1,94 +1,89 @@
-# Kabeção Veículos — Linktree
+# Kabeção Veículos — Página de links
 
-Landing page estilo Linktree para a revenda **Kabeção Veículos** (Fartura/SP), focada em conversão para WhatsApp e SEO local.
+Landing page no estilo Linktree feita para a revenda de veículos **Kabeção Veículos** (Fartura/SP). O foco é levar o visitante ao WhatsApp dos vendedores e melhorar o SEO local da loja.
+
+Projeto real para um cliente, com testes automatizados, CI no GitHub Actions e configuração de deploy na Netlify.
 
 ## Stack
 
-- [Next.js 14](https://nextjs.org/) (App Router)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [react-icons](https://react-icons.github.io/react-icons/) (ícones oficiais de marcas: WhatsApp, Instagram, TikTok, Facebook, localização)
-- [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/)
+- **Next.js 14** (App Router) + **React 18** + **TypeScript**
+- **Tailwind CSS** para estilos e **Framer Motion** para animações de entrada
+- **react-icons** (ícones de marcas) e **lucide-react**
+- **Vitest** + **Testing Library** (jsdom)
+- **ESLint** (`eslint-config-next`)
+- **Netlify** com `@netlify/plugin-nextjs`
 
-## Requisitos
+## Funcionalidades
 
-- Node.js 20 LTS (recomendado)
-- npm 10+
+- **Cartões de contato animados** (`components/LinkCard.tsx`) para 6 canais: dois vendedores no WhatsApp com mensagem pré-preenchida, Instagram, TikTok, Facebook e localização no Google Maps
+- **Destaque visual** (efeito pulse) no contato principal de vendas
+- **Rastreamento de cliques:** cada clique envia um evento ao `dataLayer` (Google Tag Manager)
+- **Analytics opcional:** GTM e Meta Pixel carregados só se os IDs estiverem configurados (`components/Analytics.tsx`)
+- **SEO técnico** (`lib/seo.ts`):
+  - metadados centralizados, Open Graph, Twitter Card e `metadataBase`
+  - `sitemap.xml` (`app/sitemap.ts`) e `robots.txt` (`app/robots.ts`)
+  - JSON-LD com `@graph`: `AutoDealer` (com endereço), `WebSite` e `Organization`, com `sameAs` das redes sociais
+- **Manifesto PWA leve** (`app/manifest.ts`) e favicon SVG
 
 ## Como rodar
 
+Requisitos: Node.js 20 LTS e npm 10+.
+
 ```bash
 npm install
+cp .env.example .env.local   # opcional em desenvolvimento
 npm run dev
 ```
 
-Abra [http://localhost:3000](http://localhost:3000).
+Acesse [http://localhost:3000](http://localhost:3000).
 
-## Scripts
+### Scripts
 
-| Comando       | Descrição                          |
-| ------------- | ---------------------------------- |
-| `npm run dev` | Servidor de desenvolvimento        |
-| `npm run build` | Build de produção              |
-| `npm run start` | Servidor após `build`          |
-| `npm run lint` | ESLint (Next.js)                 |
-| `npm run test` | Testes (Vitest, modo watch)      |
-| `npm run test:ci` | Testes uma vez (CI)          |
+| Comando | Descrição |
+|---|---|
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção |
+| `npm run start` | Servidor após o build |
+| `npm run lint` | ESLint (Next.js) |
+| `npm run test` | Vitest em modo watch |
+| `npm run test:ci` | Vitest em execução única (usado no CI) |
 
-## Variáveis de ambiente
+### Variáveis de ambiente
 
-Copie `.env.example` para `.env.local` e ajuste:
+Definidas em `.env.example`:
 
 | Variável | Uso |
-| -------- | --- |
-| `NEXT_PUBLIC_SITE_URL` | URL canônica do site (obrigatória em produção para Open Graph e JSON-LD absolutos). Ex.: `https://seudominio.netlify.app` |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | URL canônica do site (necessária em produção para Open Graph e JSON-LD com URLs absolutas) |
 | `NEXT_PUBLIC_GTM_ID` | ID do Google Tag Manager (opcional) |
-| `NEXT_PUBLIC_FB_PIXEL_ID` | ID do pixel Meta (opcional) |
-
-## Deploy (Netlify)
-
-O repositório inclui `netlify.toml` com o plugin oficial `@netlify/plugin-nextjs`. Na Netlify:
-
-1. Conecte o repositório.
-2. Defina **Build command**: `npm run build`.
-3. Defina as variáveis de ambiente (principalmente `NEXT_PUBLIC_SITE_URL`).
-4. O deploy contínuo roda a cada push na branch configurada.
-
-## CI/CD
-
-- **GitHub Actions** (`.github/workflows/ci.yml`): em push e pull requests para `main`/`master`, executa `npm ci`, `lint`, `test:ci` e `build`.
-- **Netlify**: build e publicação após merge (CD).
-
-Mantenha o `package-lock.json` versionado para `npm ci` funcionar no CI.
+| `NEXT_PUBLIC_FB_PIXEL_ID` | ID do Meta Pixel (opcional) |
 
 ## Testes
 
-Os testes cobrem:
+Os testes ficam em `tests/` e cobrem:
 
-- `LinkCard`: acessibilidade do link, `dataLayer` ao clicar (GTM).
-- `LINKS`: quantidade de canais e regras dos links de WhatsApp.
-- `buildJsonLdGraph`: presença dos tipos Schema.org esperados.
+- `LinkCard`: acessibilidade do link e envio do evento ao `dataLayer` no clique
+- `LINKS`: quantidade de canais, links de WhatsApp via `wa.me` e destaque do vendedor principal
+- `buildJsonLdGraph`: presença dos tipos Schema.org esperados
 
-## SEO
+## CI/CD
 
-- Metadados centralizados em `lib/seo.ts` (título, descrição, keywords).
-- `metadataBase`, Open Graph, Twitter Card, `robots`, `sitemap.xml` (`app/sitemap.ts`), `robots.txt` (`app/robots.ts`).
-- JSON-LD com `@graph`: `AutoDealer`, `WebSite`, `Organization` e `sameAs` das redes.
-- `app/manifest.ts` para PWA leve (nome, cores, ícone).
+- **GitHub Actions** (`.github/workflows/ci.yml`): em push e pull request para `main`/`master`, roda `npm ci`, `lint`, `test:ci` e `build` no Node 20.
+- **Netlify** (`netlify.toml`): build com `npm run build` e o plugin oficial do Next.js. Para publicar, conecte o repositório na Netlify e defina `NEXT_PUBLIC_SITE_URL`.
 
-## Estrutura útil
+Mantenha o `package-lock.json` versionado para o `npm ci` funcionar no CI.
+
+## Estrutura
 
 ```
-app/           Rotas e metadados (layout, page, sitemap, robots, manifest)
-components/    UI (LinkCard, Analytics)
-lib/           Links, SEO, URL base
-public/        `logo.png` e assets estáticos
-tests/         Testes Vitest
+app/          Rotas e metadados (layout, page, sitemap, robots, manifest, ícone)
+components/   UI (LinkCard, Analytics)
+lib/          Links, SEO e URL base do site
+public/       Logo e assets estáticos
+tests/        Testes Vitest
 ```
 
-## EditorConfig
-
-O projeto segue `.editorconfig` (indentação 2 espaços, CRLF, UTF-8). Ajuste o editor para respeitar o arquivo.
+O projeto segue o `.editorconfig` (indentação de 2 espaços, CRLF, UTF-8).
 
 ## Licença
 
